@@ -9,21 +9,29 @@
                 flex-direction: column;
             }
 
-            .tool-panel {
+            .bottom-panel {
                 display: flex;
                 flex: 1;
-                flex-direction: column;
-                flex-wrap: wrap;
                 align-items: center;
-                justify-content: space-evenly;
-                background-color: gray;
-                padding-top: 5px;
+                justify-content: center;
+                background-color: black;
             }
 
-            label {
-                height: 35px;
+            .tool-panel {
+                display: flex;
+                width: 20vw;
+                align-items: center;
+                justify-content: center;
+                background-color: white;
+                padding: 10px;
+                margin: 5px;
+
             }
-            
+
+            .tool-panel button {
+                margin: 1%;
+            }
+
             .main-grid {
                 display: flex;
                 flex: 1;
@@ -46,22 +54,11 @@
                 height: 90vh;
                 background: url("src/assets/8bitbg.png") repeat;
             }
-            
-            [type=radio] {
-                position: absolute;
-                width: 0;
-                height: 0;
-                opacity: 0;
-            }
-            
-            [type=radio] + img {
-                background-color:rgb(255, 255, 255, 0.5);
-                border-radius: 90%;
-            }
-            
-            [type=radio]:checked + img {
-                background-color: white;
-                border-radius: 90%;
+            button {
+                padding: 0;
+                margin: 0;
+                background: 0;
+                border: transparent;
             }
         </style>
 
@@ -82,23 +79,23 @@
                 <canvas id="canvas"></canvas>
                 <div class="right-side-bar"></div>
             </div>
-            <div class="tool-panel">
-                <label>
-                <input type="radio" name="painttools" id="pencil-radio" onChange="update"/>
-                    <img src='src/assets/pencil.png' alt='pencil' id="pencil"/>
-                    <script type="module">
-                        import { pencilDraw } from './src/modules/draw.js';
-                        document.getElementById('pencil').addEventListener('click', pencilDraw);
-                    </script>
-                </label>
-                <label>
-                    <input type="radio" name="painttools"/>
-                    <img src='src/assets/eraser.png' alt='eraser' id="eraser"/>
-                    <script type="module">
-                        import { erase } from './src/modules/draw.js';
-                        document.getElementById('eraser').addEventListener('click', erase);
-                    </script>
-                </label>
+            <div class="bottom-panel">
+                <div class="tool-panel">
+                    <button role="button">
+                        <img src='src/assets/pencil.png' alt='pencil' id="pencil"/>
+                    </button> 
+                        <!-- <script type="module">
+                            import { pencilDraw } from './src/modules/draw.js';
+                            document.getElementById('pencil').addEventListener('click', pencilDraw);
+                        </script> -->
+                        <button role="button">
+                            <img src='src/assets/eraser.png' alt='eraser' id="eraser"/>
+                        </button>
+                        <!-- <script type="module">
+                            import { erase } from './src/modules/draw.js';
+                            document.getElementById('eraser').addEventListener('click', erase);
+                        </script> -->
+                </div>
             </div>
         </div>
     </body>

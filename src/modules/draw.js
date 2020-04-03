@@ -20,6 +20,13 @@ export function pencilDraw() {
         context.moveTo(event.clientX - rect.left, event.clientY - rect.top);
         canvas.addEventListener('mousemove', draw);
     });
+
+    // var clearButton = document.getElementById('clear');
+
+    // clearButton.addEventListener('click', function() {
+    //   context.clearRect(0, 0, canvas.width, canvas.height);
+    // });
+
     canvas.addEventListener('mouseup', (event) => {
         canvas.removeEventListener('mousemove', draw);
     });
