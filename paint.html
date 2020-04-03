@@ -8,7 +8,7 @@
                 flex: 1;
                 flex-direction: column;
             }
-            
+
             .tool-panel {
                 display: flex;
                 flex: 1;
@@ -19,7 +19,7 @@
                 background-color: gray;
                 padding-top: 5px;
             }
-            
+
             label {
                 height: 35px;
             }
@@ -67,26 +67,11 @@
 
         <script>
             document.addEventListener("DOMContentLoaded", (event) => {
-                function draw(event) {
-                    context.lineTo(event.clientX - rect.left, event.clientY - rect.top);
-                    context.stroke();
-                }
                 const canvas = document.getElementById("canvas");
                 canvas.width = canvas.clientWidth;
                 canvas.height = canvas.clientHeight;
                 let context = canvas.getContext('2d');
                 var rect = canvas.getBoundingClientRect();
-                
-                canvas.addEventListener('mousedown', event => {
-                    context.strokeStyle = 'blue';
-                    context.lineWidth = 2;
-                    context.beginPath();
-                    context.moveTo(event.clientX - rect.left, event.clientY - rect.top);
-                    canvas.addEventListener('mousemove', draw);
-                });
-                canvas.addEventListener('mouseup', (event) =>{
-                    canvas.removeEventListener('mousemove', draw);
-                });
             });
             
         </script>
@@ -101,11 +86,19 @@
             <div class="tool-panel">
                 <label>
                     <input type="radio" name="painttools"/>
-                    <img src='src/assets/pencil.png' alt='pencil'/>
+                    <img src='src/assets/pencil.png' alt='pencil' id="pencil"/>
+                    <script type="module">
+                        import { pencilDraw } from './src/modules/draw.js';
+                        document.getElementById('pencil').addEventListener('click', pencilDraw);
+                    </script>
                 </label>
                 <label>
                     <input type="radio" name="painttools"/>
                     <img src='src/assets/eraser.png' alt='eraser'/>
+                    <script type="module">
+                        import { erase } from './src/modules/draw.js';
+                        document.getElementById('eraser').addEventListener('click', erase);
+                    </script>
                 </label>
             </div>
         </div>
