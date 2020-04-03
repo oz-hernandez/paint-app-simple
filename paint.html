@@ -8,7 +8,6 @@
                 flex: 1;
                 flex-direction: column;
             }
-
             .bottom-panel {
                 display: flex;
                 flex: 1;
@@ -16,7 +15,6 @@
                 justify-content: center;
                 background-color: black;
             }
-
             .tool-panel {
                 display: flex;
                 width: 20vw;
@@ -25,28 +23,22 @@
                 background-color: white;
                 padding: 10px;
                 margin: 5px;
-
             }
-
             .tool-panel button {
                 margin: 1%;
             }
-
             .main-grid {
                 display: flex;
                 flex: 1;
             }
-            
             .main-grid > div[class="left-side-bar"] {
                 width: 5vw;
                 background-color: gray;
             }
-            
             .main-grid > div[class="right-side-bar"] {
                 width: 5vw;
                 background-color: gray;
             }
-            
             #canvas {
                 display: flex;
                 flex: 1;
@@ -62,13 +54,15 @@
             }
         </style>
 
-        <script>
+        <script type="module">
+            import { draw } from './src/modules/draw.js';
             document.addEventListener("DOMContentLoaded", (event) => {
                 const canvas = document.getElementById("canvas");
                 canvas.width = canvas.clientWidth;
                 canvas.height = canvas.clientHeight;
-                let context = canvas.getContext('2d');
-                var rect = canvas.getBoundingClientRect();
+
+                document.getElementById('pencil').addEventListener('click', event => { draw(event); });
+                document.getElementById('eraser').addEventListener('click', event => { draw(event); });
             });
         </script>
     </head>
@@ -81,20 +75,12 @@
             </div>
             <div class="bottom-panel">
                 <div class="tool-panel">
-                    <button role="button">
+                    <button role="button" id="pencil">
                         <img src='src/assets/pencil.png' alt='pencil' id="pencil"/>
                     </button> 
-                        <!-- <script type="module">
-                            import { pencilDraw } from './src/modules/draw.js';
-                            document.getElementById('pencil').addEventListener('click', pencilDraw);
-                        </script> -->
-                        <button role="button">
-                            <img src='src/assets/eraser.png' alt='eraser' id="eraser"/>
-                        </button>
-                        <!-- <script type="module">
-                            import { erase } from './src/modules/draw.js';
-                            document.getElementById('eraser').addEventListener('click', erase);
-                        </script> -->
+                    <button role="button" class="eraser">
+                        <img src='src/assets/eraser.png' alt='eraser' id="eraser"/>
+                    </button>
                 </div>
             </div>
         </div>
