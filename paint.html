@@ -73,7 +73,6 @@
                 let context = canvas.getContext('2d');
                 var rect = canvas.getBoundingClientRect();
             });
-            
         </script>
     </head>
     <body>
@@ -85,7 +84,7 @@
             </div>
             <div class="tool-panel">
                 <label>
-                    <input type="radio" name="painttools"/>
+                <input type="radio" name="painttools" id="pencil-radio" onChange="update"/>
                     <img src='src/assets/pencil.png' alt='pencil' id="pencil"/>
                     <script type="module">
                         import { pencilDraw } from './src/modules/draw.js';
@@ -94,7 +93,7 @@
                 </label>
                 <label>
                     <input type="radio" name="painttools"/>
-                    <img src='src/assets/eraser.png' alt='eraser'/>
+                    <img src='src/assets/eraser.png' alt='eraser' id="eraser"/>
                     <script type="module">
                         import { erase } from './src/modules/draw.js';
                         document.getElementById('eraser').addEventListener('click', erase);
