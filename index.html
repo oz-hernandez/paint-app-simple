@@ -115,8 +115,9 @@
                 var rect = canvas.parentNode.getBoundingClientRect();
                 canvas.width = rect.width;
                 canvas.height = rect.height;
-                document.getElementById('pencil').addEventListener('click', event => { draw(event); });
-                document.getElementById('eraser').addEventListener('click', event => { draw(event); });
+                document.querySelector('#pencil').addEventListener('click', event => { draw(event); });
+                document.querySelector('#eraser').addEventListener('click', event => { draw(event); });
+                document.querySelector('#clear').addEventListener('click', event => { draw(event); });
             });
         </script>
     </head>
@@ -127,11 +128,14 @@
             </div>
             <div class="bottom-panel">
                 <div class="tool-panel">
-                    <button role="button" id="pencil">
-                        <img src='src/assets/pencil.png' alt='pencil' id="pencil"/>
+                    <button role="button" id="pencil" name="tool-button">
+                        <img src='src/assets/pencil.png' alt='pencil'/>
                     </button> 
-                    <button role="button" class="eraser">
-                        <img src='src/assets/eraser.png' alt='eraser' id="eraser"/>
+                    <button role="button" id="eraser" name="tool-button">
+                        <img src='src/assets/eraser.png' alt='eraser'/>
+                    </button>
+                    <button role="button" id="clear" name="tool-button">
+                        Clear Canvas
                     </button>
                 </div>
             </div>

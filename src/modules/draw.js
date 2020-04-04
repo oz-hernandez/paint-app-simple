@@ -15,7 +15,7 @@ export function draw(event) {
     let context = canvas.getContext('2d');
     var rect = canvas.getBoundingClientRect();
 
-    switch(event.target.id) {
+    switch(event.currentTarget.id) {
         case "pencil":
             function draw(event) {
                 context.lineTo(event.clientX - rect.left, event.clientY - rect.top);
@@ -76,12 +76,10 @@ export function draw(event) {
                 // canvas.removeEventListener('mousemove', draw);
             });
             break;
+        
+        case "clear":
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            break;
         }
     }
-
-
-  // var clearButton = document.getElementById('clear');
-
-    // clearButton.addEventListener('click', function() {
-    //   context.clearRect(0, 0, canvas.width, canvas.height);
-    // });
+    
