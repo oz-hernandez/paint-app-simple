@@ -67,6 +67,7 @@
         </style>
 
         <script type="module">
+            import { draw } from './src/modules/draw.js';
              window.addEventListener('resize', (event) => {
                     let serializedImg = new Image();
                     serializedImg.src = canvas.toDataURL("image/png");
@@ -79,7 +80,6 @@
 
                     context.drawImage(serializedImg, 0, 0); 
                 });
-            import { draw } from './src/modules/draw.js';
             document.addEventListener("DOMContentLoaded", (event) => {
                 // we have to adjust our vh units on mobile in order to account
                 // for the address bar otherwise our page will be cropped at the bottom.

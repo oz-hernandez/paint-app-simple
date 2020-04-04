@@ -11,7 +11,7 @@ export function drawContext(color) {
 let methodsToRemove = new Map();
 
 export function draw(event) {
-    let canvas = document.getElementById('canvas');
+    const canvas = document.getElementById('canvas');
     let context = canvas.getContext('2d');
     var rect = canvas.getBoundingClientRect();
 
@@ -22,7 +22,6 @@ export function draw(event) {
                 context.stroke();
             }
             function drawTouch(event) {
-                event.preventDefault();
                 context.lineTo(event.touches[0].clientX - rect.left, event.touches[0].clientY - rect.top);
                 context.stroke();
             }
@@ -42,15 +41,13 @@ export function draw(event) {
                 context.beginPath();
                 context.moveTo(event.touches[0].clientX - rect.left, event.touches[0].clientY - rect.top);
                 canvas.addEventListener('touchmove', (event) => {
-                    event.preventDefault();
                     drawTouch(event);
                 });
             }
-            canvas.addEventListener('mousedown', (event) => {
-                setup(event);
-                canvas.addEventListener('mouseup', event => {
-                    canvas.removeEventListener('mousemove', draw);
-                });
+            canvas.addEventListener('mousedown', setup);
+
+            canvas.addEventListener('mouseup', event => {
+                canvas.removeEventListener('mousemove', draw);
             });
 
             canvas.addEventListener('touchstart', (event) => {
@@ -63,10 +60,12 @@ export function draw(event) {
             
             if(!methodsToRemove.has("pencil")) {
                 methodsToRemove.set("pencil", setup);
+                methodsToRemove.set("pencil", setupTouch);
             }
             break;
         case "eraser":
             canvas.removeEventListener('mousedown', methodsToRemove.get('pencil'));
+            canvas.removeEventListener('touchstart', methodsToRemove.get('pencil'));
             canvas.addEventListener('mousedown', event => {
                 console.log("mouse down");
                 canvas.addEventListener('mousemove', event => {
