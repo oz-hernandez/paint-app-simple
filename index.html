@@ -18,7 +18,7 @@
                 flex-shrink: 1;
                 flex-direction: column;
             }
-            .main-grid {
+            .app div[class="main-grid"] {
                 display: flex;
                 flex-grow: 1;
             }
@@ -30,7 +30,7 @@
                 width: 5vw;
                 background-color: gray;
             } */
-            #canvas {
+            .main-grid canvas[id="canvas"] {
                 display: flex;
                 width: 100vw;
                 height: calc(var(--vh, 1vh) * 100);
@@ -81,6 +81,10 @@
                 });
             import { draw } from './src/modules/draw.js';
             document.addEventListener("DOMContentLoaded", (event) => {
+                // we have to adjust our vh units on mobile in order to account
+                // for the address bar otherwise our page will be cropped at the bottom.
+                // this is a paint app so we don't want to be scrolling our page when trying to
+                // draw
                 let vh = window.innerHeight * 0.01;
                 document.documentElement.style.setProperty('--vh', `${vh}px`);
                 const canvas = document.getElementById("canvas");

@@ -3,6 +3,11 @@ export function updateCanvas() {
    console.log('inside update canvas');
 }
 
+
+export function drawContext(color) {
+    this.color = color;
+}
+
 let methodsToRemove = new Map();
 
 export function draw(event) {
@@ -16,6 +21,12 @@ export function draw(event) {
                 context.lineTo(event.clientX - rect.left, event.clientY - rect.top);
                 context.stroke();
             }
+            function drawTouch(event) {
+                event.preventDefault();
+                context.lineTo(event.touches[0].clientX - rect.left, event.touches[0].clientY - rect.top);
+                context.stroke();
+            }
+
             function setup(event) {
                 let context = canvas.getContext('2d');
                 context.strokeStyle = 'blue';
@@ -24,11 +35,32 @@ export function draw(event) {
                 context.moveTo(event.clientX - rect.left, event.clientY - rect.top);
                 canvas.addEventListener('mousemove', draw);
             }
-            canvas.addEventListener('mousedown', setup);
-            canvas.addEventListener('mouseup', event => {
-                canvas.removeEventListener('mousemove', draw);
+            function setupTouch(event) {
+                let context = canvas.getContext('2d');
+                context.strokeStyle = 'blue';
+                context.lineWidth = 2;
+                context.beginPath();
+                context.moveTo(event.touches[0].clientX - rect.left, event.touches[0].clientY - rect.top);
+                canvas.addEventListener('touchmove', (event) => {
+                    event.preventDefault();
+                    drawTouch(event);
+                });
+            }
+            canvas.addEventListener('mousedown', (event) => {
+                setup(event);
+                canvas.addEventListener('mouseup', event => {
+                    canvas.removeEventListener('mousemove', draw);
+                });
             });
 
+            canvas.addEventListener('touchstart', (event) => {
+                event.preventDefault();
+                setupTouch(event);
+                canvas.addEventListener('touchend', (event) => {
+                    canvas.removeEventListener('touchmove', drawTouch);
+                });
+            });
+            
             if(!methodsToRemove.has("pencil")) {
                 methodsToRemove.set("pencil", setup);
             }
