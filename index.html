@@ -1,18 +1,50 @@
 <!doctype html>
 <html>
     <head>
+        <meta name="viewport" content ="width=device-width,initial-scale=1,user-scalable=yes" />
         <title>Paint App</title>
         <style>
+            html body {
+                margin: 0%;
+                height: 100%;
+                width: 100%;
+                overflow-y: hidden;
+                overflow-x: hidden;
+            }
+            body {
+                position: relative;
+            }
             .app {
                 display: flex;
-                flex: 1;
+                flex-grow: 1;
                 flex-direction: column;
+                width: 100vw;
+                height: 100vh;
+            }
+            .main-grid {
+                display: flex;
+                flex-grow: 1;
+            }
+            /* .main-grid > div[class="left-side-bar"] {
+                width: 5vw;
+                background-color: gray;
+            }
+            .main-grid > div[class="right-side-bar"] {
+                width: 5vw;
+                background-color: gray;
+            } */
+            #canvas {
+                display: flex;
+                background: url("src/assets/8bitbg.png") repeat;
             }
             .bottom-panel {
                 display: flex;
-                flex: 1;
+                position: absolute;
+                width: 100vw;
+                bottom: 0;
                 align-items: center;
                 justify-content: center;
+                padding: 10px;
                 background-color: black;
             }
             .tool-panel {
@@ -26,40 +58,35 @@
             }
             .tool-panel button {
                 margin: 1%;
-            }
-            .main-grid {
-                display: flex;
-                flex: 1;
-            }
-            .main-grid > div[class="left-side-bar"] {
-                width: 5vw;
-                background-color: gray;
-            }
-            .main-grid > div[class="right-side-bar"] {
-                width: 5vw;
-                background-color: gray;
-            }
-            #canvas {
-                display: flex;
-                flex: 1;
-                width: 100vw;
-                height: 90vh;
-                background: url("src/assets/8bitbg.png") repeat;
+                padding: 0 10px 0 10px;
             }
             button {
                 padding: 0;
                 margin: 0;
                 background: 0;
-                border: transparent;
+                /* border: transparent; */
             }
         </style>
 
         <script type="module">
+             window.addEventListener('resize', (event) => {
+                    let serializedImg = new Image();
+                    serializedImg.src = canvas.toDataURL("image/png");
+                    
+                    const canvas = document.getElementById("canvas");
+                    const context = canvas.getContext('2d');
+                    var rect = canvas.parentNode.getBoundingClientRect();
+                    canvas.width = rect.width;
+                    canvas.height = rect.height;
+
+                    context.drawImage(serializedImg, 0, 0);
+                });
             import { draw } from './src/modules/draw.js';
             document.addEventListener("DOMContentLoaded", (event) => {
                 const canvas = document.getElementById("canvas");
-                canvas.width = canvas.clientWidth;
-                canvas.height = canvas.clientHeight;
+                var rect = canvas.parentNode.getBoundingClientRect();
+                canvas.width = rect.width;
+                canvas.height = rect.height;
 
                 document.getElementById('pencil').addEventListener('click', event => { draw(event); });
                 document.getElementById('eraser').addEventListener('click', event => { draw(event); });
@@ -69,9 +96,9 @@
     <body>
         <div class="app">
             <div class="main-grid">
-                <div class="left-side-bar"></div>
+                <!-- <div class="left-side-bar"></div> -->
                 <canvas id="canvas"></canvas>
-                <div class="right-side-bar"></div>
+                <!-- <div class="right-side-bar"></div> -->
             </div>
             <div class="bottom-panel">
                 <div class="tool-panel">
